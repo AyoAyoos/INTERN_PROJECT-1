@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - AQ Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard.css') }}">
+</head>
+<body>
+    <!-- Dashboard Welcome Screen -->
+    <div id="dashboard-container" class="container">
+        <div class="logo"></div>
+        <h1>Student Dashboard</h1>
+        <p class="subtitle">Welcome to the Adversity Quotient Assessment</p>
+        
+        <div class="buttons">
+            <button class="btn" id="take-quiz-btn">
+                <span></span> Take Quiz
+            </button>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                
+                <span>20 Questions - Approximately 10 minutes</span>
+            </div>
+            <div class="feature">
+                <i></i>
+                <span>Instant Results and Detailed Analysis</span>
+            </div>
+            <div class="feature">
+                <i></i>
+                <span>Personalized Recommendations</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="container quiz-container">
+        <div class="quiz-header">
+            <h2>Adversity Quotient Assessment</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">Question 1 of 20</span>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <div class="question-number" id="question-number">Question 1</div>
+            <div class="question-text" id="question-text"></div>
+            
+            <div class="options-container" id="options-container">
+                <!-- Options will be dynamically generated -->
+            </div>
+        </div>
+
+        <div class="quiz-navigation">
+            <button class="btn btn-secondary" id="prev-btn" disabled>Previous</button>
+            <button class="btn" id="next-btn" disabled>Next</button>
+            <button class="btn btn-success" id="finish-btn" style="display: none;">Finish Quiz</button>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="results-container" class="container results-container">
+        <div class="results-header">
+            <h2>Your AQ Assessment Results</h2>
+            <div class="completion-badge"> Assessment Completed</div>
+        </div>
+
+        <div class="score-display">
+            <div class="score-circle">
+                <div class="score-number" id="final-score">0</div>
+                <div class="score-label">AQ Score</div>
+            </div>
+            <div class="score-level" id="score-level">Processing...</div>
+        </div>
+
+        <div class="results-details">
+            <div class="result-card">
+                <h3> Your Performance</h3>
+                <div class="performance-stats">
+                    <div class="stat">
+                        <span class="stat-label">Total Score:</span>
+                        <span class="stat-value" id="total-score">0/100</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Performance Level:</span>
+                        <span class="stat-value" id="performance-level">-</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Date Completed:</span>
+                        <span class="stat-value" id="completion-date">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3> What This Means</h3>
+                <div class="description-text" id="score-description">
+                    Loading your personalized analysis...
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3> Recommendations</h3>
+                <div class="recommendations" id="recommendations">
+                    <ul>
+                        <li>Loading personalized recommendations...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+    <button class="btn" id="retake-btn">Retake Assessment</button>
+    <button class="btn btn-secondary" id="dashboard-btn">Back to Dashboard</button>
+    <button class="btn btn-primary" id="download-pdf-btn">Download PDF</button>
+</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/student_dashboard.js') }}"></script>
+</body>
+</html>

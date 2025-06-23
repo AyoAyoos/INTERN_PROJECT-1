@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard - BERT Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/teacher_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading.css') }}">
+</head>
+
+<body>
+    <h1>Teacher Dashboard</h1>
+    <h2>Upload Question file for Classification</h2>
+
+    <div class="upload-instructions">
+        <strong>Note:</strong> Your CSV or Excel file should contain only one column named <code>"question"</code>.  
+        Ensure there are no other columns or headers.
+    </div>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" class="form-box">
+        <div class="form-group">
+            <label for="file" class="custom-file-label">Choose a .csv or .xlsx file:</label>
+            <input type="file" id="file" name="file" accept=".csv,.xlsx" required class="custom-file-input">
+            <span id="file-name" class="file-name">No file chosen</span>
+        </div>
+
+        <button type="submit">Upload & Classify</button>
+    </form>
+
+    <br>
+    <a href="/"><button>Back to Home</button></a>
+
+    <!-- Loading UI will be injected here by JavaScript -->
+
+    <script>
+        // File name display
+        document.getElementById('file').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
+
+    <!-- Include the loading UI JavaScript -->
+    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
+</body>
+</html>

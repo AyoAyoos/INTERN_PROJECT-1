@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Results - BERT Question Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>📊 BERT Classification Results</h1>
+            {% if filename %}
+            <div class="file-info">
+                <span class="file-label">Analyzed File:</span>
+                <span class="filename">{{ filename }}</span>
+            </div>
+            {% endif %}
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="results-section">
+                {% if results and results|length > 0 and 'error' not in results[0] %}
+                    <!-- Results Table -->
+                    <div class="table-container">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Bloom Level</th>
+                                    <th>Description</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in results %}
+                                    {% if 'error' not in result %}
+                                    <tr>
+                                        <td class="question-cell">{{ result.question }}</td>
+                                        <td class="level-cell">{{ result.bloom_level }}</td>
+                                        <td class="description-cell">{{ result.bloom_description }}</td>
+                                        <td class="confidence-cell">{{ result.confidence }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button id="downloadPdfBtn" class="btn btn-primary">
+                            <span class="btn-icon">📄</span>
+                            Download PDF
+                        </button>
+                        <button id="exportCsvBtn" class="btn btn-secondary">
+                            <span class="btn-icon">📊</span>
+                            Export CSV
+                        </button>
+                        <button id="backToDashboardBtn" class="btn btn-tertiary">
+                            <span class="btn-icon">🏠</span>
+                            Back to Dashboard
+                        </button>
+                    </div>
+
+                {% else %}
+                    <!-- No Results View -->
+                    <div class="fallback-view">
+                        <div class="fallback-content">
+                            <div class="fallback-icon">📋</div>
+                            <h2>No Results Available</h2>
+                            {% if results and results|length > 0 and 'error' in results[0] %}
+                                <p>There was an error processing your file:</p>
+                                <p style="color: #e74c3c; font-weight: bold;">{{ results[0].error }}</p>
+                            {% else %}
+                                <p>No classification results found.</p>
+                                <p>This could happen if:</p>
+                                <ul>
+                                    <li>No file was uploaded</li>
+                                    <li>The file was empty or had no valid questions</li>
+                                    <li>There was an error during processing</li>
+                                    <li>The session expired</li>
+                                </ul>
+                            {% endif %}
+                            
+                            <div class="fallback-actions">
+                                <button id="backToDashboardBtn" class="btn btn-primary">
+                                    <span class="btn-icon">🏠</span>
+                                    Back to Dashboard
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 BERT Question Classifier - Bloom's Taxonomy Analysis</p>
+        </footer>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+
+        
+
+
+</html>
